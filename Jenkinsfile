@@ -12,19 +12,13 @@ pipeline {
             steps {
                 echo "Building.."
                 sh '''
-                # Navigate to the application directory
                 cd myapp
-                
-                # Install virtualenv (if it's not already installed)
-                python3 -m pip install --user virtualenv
                 
                 # Create a virtual environment
                 python3 -m venv venv
-                
-                # Activate the virtual environment
-                source venv/bin/activate
-                
-                # Install the dependencies in the virtual environment
+
+                # Activate it and install dependencies
+                . venv/bin/activate
                 pip install -r requirements.txt
                 '''
             }
@@ -34,13 +28,13 @@ pipeline {
                 echo "Testing.."
                 sh '''
                 cd myapp
-                
+
                 # Activate the virtual environment
-                source venv/bin/activate
-                
+                . venv/bin/activate
+
                 # Run the tests
-                python3 hello.py
-                python3 hello.py --name=Brad
+                python hello.py
+                python hello.py --name=Brad
                 '''
             }
         }
